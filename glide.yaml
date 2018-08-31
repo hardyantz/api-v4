@@ -1,0 +1,9 @@
+package: github.com/hardyantz/go-clean-arch
+import:
+- package: github.com/labstack/echo
+  version: 3.3.5
+- package: github.com/arangodb/go-driver
+- package: github.com/joho/godotenv
+  version: v1.2.0
+- package: github.com/sirupsen/logrus
+  version: v1.0.6
