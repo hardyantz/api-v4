@@ -1,0 +1,29 @@
+language: go
+go:
+  - "1.x"
+  - "1.9"
+addons:
+  hosts:
+  - plankton-db
+
+before_install:
+  - docker-compose --version
+  - docker-compose up -d arangodb
+  - docker-compose ps
+
+install:
+  - glide cc
+  - glide install
+  - go run main.go
+
+before_script:
+  - sudo chmod -R 777 storage/
+  - docker exec -t -i plankton-db arangoimp --file ./db/arango/brands.json --collection brands --create-collection true --server.password toor
+
+services:
+  - docker
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: YtSIX567ZIj/55wd+LLST2zNBvEaajI24xvr1x+JShT/1QubnSR6KNTQmRi7Hq4lB5HrirZSqO9kxkUE1qkTg/9qIKzIy6GrUXmqexsOQYnJkAvJhxZcKPOFWcVMEYDwPEADvD4/B+WgdhA2Yu+C6v+6dQHGkpPnZ/J3oABJDOyj7Ac/iYNjFsXLyJbuuQxHMdo43cIS2jnCnB/i4s0m72FiADXdI62z2ufp/kV2igmWQW7CAz/m8KSnncSXzDzXaAB7fGuVAu2nptXhccU/ghHu4kKnvzlQT7oM3dtPi1g5+trFXOm2H2MeoWH+9ySm/zt0PXVS9tpBpGvEA87PlGnePm3LjrWI7vJgqM7CH99gBJK5BTyd6aD/IrRWYgXHsfkjMnLKL49ebMjPBbIjpVhMOIEKYCGVm5SyYO7MZGshN7VGvwQlxookAnxgGYOCHEdxPqZFPTdt5zI1kYPChtvPlHTMmjqYtUtCmeZx1/Ql/j5Xe3JMxWkqvZDYQCijIbmY5203FPom7ZPniv/AP5TPsePLnkRFz3ILZs+jF17iwcY18Zhz2m4YPqI4eqQ2N9qlXCvaG9/S3I/0fqHHzojRTQLr89YKTCeKug6F9AhKnwN0xvPwMLfAYsAXpdolZ3v2qCu6zFTl4AG6RVzvblMJHe/bgOee38b49QKEnbI=
