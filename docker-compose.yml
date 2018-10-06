@@ -1,0 +1,12 @@
+version: '2'
+services:
+  arangodb:
+    image: arangodb/arangodb:3.2.9
+    container_name: plankton-db
+    ports:
+    - 8529:8529
+    environment:
+      ARANGO_ROOT_PASSWORD: toor
+    volumes:
+    - ./storage/arangodb:/var/lib/arangodb3
+    - ./:/home
