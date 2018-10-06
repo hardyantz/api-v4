@@ -1,10 +1,22 @@
 language: go
 go:
-  - "1.x"
   - "1.9"
 addons:
   hosts:
   - plankton-db
+  apt:
+    sources:
+    - sourceline: ppa:masterminds/glide
+    - sourceline: ppa:ubuntu-toolchain-r/test
+    - sourceline: deb https://download.docker.com/linux/ubuntu trusty stable
+      key_url: https://download.docker.com/linux/ubuntu/gpg
+    packages:
+    - glide
+    - g++-6
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
 
 before_install:
   - docker-compose --version
