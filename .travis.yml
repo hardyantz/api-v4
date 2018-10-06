@@ -29,7 +29,7 @@ install:
 
 before_script:
   - sudo chmod -R 777 storage/
-  - docker exec -t -i plankton-db arangoimp --file /home/database/json/brands.json --collection brands --create-collection true --server.password toor
+  - docker exec -t -i plankton-db arangoimp --file /home/db/arango/brands.json --collection brands --create-collection true --server.password toor
 
 services:
   - docker
