@@ -26,7 +26,6 @@ before_install:
 install:
   - glide cc
   - glide install
-  - go run main.go
 
 before_script:
   - sudo chmod -R 777 storage/
